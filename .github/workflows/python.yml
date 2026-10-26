@@ -1,19 +1,24 @@
-name: Python CI
+name: CI
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  comprobar:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Instalar Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - run: python -m py_compile Actividad.py
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar tests
+        run: pytest test_division.py
